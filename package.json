@@ -1,13 +1,26 @@
 {
-  "name": "gestor-correos",
+  "name": "gestion-de-correos",
   "version": "1.0.0",
-  "type": "module",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "test": "vitest run",
     "build": "tsc --noEmit"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anajulietasg/Gestion-de-correos.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/anajulietasg/Gestion-de-correos/issues"
+  },
+  "homepage": "https://github.com/anajulietasg/Gestion-de-correos#readme",
   "devDependencies": {
-    "typescript": "^5.6.0",
-    "vitest": "^2.1.0"
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
   }
 }
