@@ -9,6 +9,9 @@ export class Enviador {
     }
 
     enviar(correo: Correo): void {
+        if (this._enviados.contiene(correo)) {   //le pregunta a la bandeja si ese mismo correo ya está
+            throw new Error("El correo ya fue enviado");
+        }
         if (correo.asunto.trim() === "") {   //trim saca los espacios, "   " cuenta como vacío
             throw new Error("El correo debe tener asunto");
         }

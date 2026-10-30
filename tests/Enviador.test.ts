@@ -43,4 +43,27 @@ describe("Enviador", () => {
         expect(() => enviador.enviar(correo)).toThrow("El correo debe tener al menos un destinatario");
         expect(enviados.contiene(correo)).toBe(false);
     });
+
+    test("no permite enviar dos veces el mismo correo", () => {
+        const enviados = new Bandeja("Enviados");
+        const enviador = new Enviador(enviados);
+        const correo = new Correo(ana, "Hola", "Texto", [fabrizio]);
+
+        enviador.enviar(correo);
+
+        expect(() => enviador.enviar(correo)).toThrow("El correo ya fue enviado");
+        expect(enviados.obtenerTodos().length).toBe(1);   //sigue habiendo uno solo
+    });
+
+    test("envía un correo a varios destinatarios", () => {
+        const enviados = new Bandeja("Enviados");
+        const enviador = new Enviador(enviados);
+        const juan = new Contacto("Juan Martin", "juan@gmail.com");
+        const correo = new Correo(ana, "Reunión", "Texto", [fabrizio, juan]);
+
+        enviador.enviar(correo);
+
+        expect(enviados.contiene(correo)).toBe(true);
+        expect(correo.destinatarios.length).toBe(2);
+    });
 });
