@@ -88,6 +88,39 @@ describe("Agenda", () => {
         expect(agenda.buscar("fabrizio@gmail.com")).toBe(fabrizio);
         expect(agenda.buscar("ana@gmail.com")).toBe(ana);
     });
+    
+    test("permite eliminar un contacto existente", () => {
+        const agenda = new Agenda();
+        const fabrizio = new Contacto("Fabrizio", "fabrizio@gmail.com");
 
+        agenda.agregar(fabrizio);
+
+        agenda.eliminar("fabrizio@gmail.com");
+
+        expect(agenda.buscar("fabrizio@gmail.com")).toBeUndefined();
+    });
+
+    test("no permite eliminar un contacto inexistente", () => {
+        const agenda = new Agenda();
+
+        expect(() =>
+            agenda.eliminar("fabrizio@gmail.com")
+        ).toThrow("El contacto no existe");
+    });
+
+    test("eliminar un contacto no afecta a los demás", () => {
+        const agenda = new Agenda();
+
+        const ana = new Contacto("Ana", "ana@gmail.com");
+        const fabrizio = new Contacto("Fabrizio", "fabrizio@gmail.com");
+
+        agenda.agregar(ana);
+        agenda.agregar(fabrizio);
+
+        agenda.eliminar("fabrizio@gmail.com");
+
+        expect(agenda.buscar("fabrizio@gmail.com")).toBeUndefined();
+        expect(agenda.buscar("ana@gmail.com")).toBe(ana);
+    });
 });
 

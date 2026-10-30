@@ -62,5 +62,15 @@ export class Agenda {
         // Modifica el email utilizando el setter de Contacto.
         contacto.email = nuevoEmail;
     }
+    eliminar(email: string): void {
+    const contacto = this.buscar(email);
 
+    if (!contacto) {
+        throw new Error("El contacto no existe");
+    }
+
+    this.contactos = this.contactos.filter(
+        existente => existente !== contacto
+    );
+}
 }
