@@ -5,7 +5,8 @@ export class Agenda {
     private contactos: Contacto[] = [];
 
     agregar(contacto: Contacto): void {
-        if (this.emailEnUso(contacto.email)) {
+        //si el mail ya está registrado, no permite agregarlo.
+        if (this.emailEnUso(contacto.email)) {  //usa método privado
             throw new Error("El contacto ya existe")
         }
         //si no está repetido, arega el contacto al arreglo
@@ -29,7 +30,7 @@ export class Agenda {
             throw new Error("El contacto no existe");
         }
 
-        contacto.nombre = nuevoNombre;
+        contacto.nombre = nuevoNombre;    //el setter de Contacto valida que no esté vacío
     }
 
     modificarEmail(emailActual: string, nuevoEmail: string): void {
@@ -38,11 +39,11 @@ export class Agenda {
         if (!contacto) {
             throw new Error("El contacto no existe");
         }
-
-        if (this.emailEnUso(nuevoEmail, contacto)) {    
+        //si el email pertenece a otro contacto, rechaza el cambio
+        if (this.emailEnUso(nuevoEmail, contacto)) {     //usa el método privado
             throw new Error("El contacto ya existe");
         }
-
+        //modifica el email utilizando el setter de Contacto
         contacto.email = nuevoEmail;
     }
 
@@ -57,15 +58,15 @@ export class Agenda {
             existente => existente !== contacto
         );
     }
-
+    //revisa si el email ya lo tiene algún contacto
     private emailEnUso(email: string, excepto?: Contacto): boolean {
         const buscado = this.normalizar(email);
         return this.contactos.some(
             existente => existente !== excepto && existente.email === buscado
         );
     }
-
-    private normalizar(email: string): string {  //deja el email sin espacios y en minúsculas
+    //deja el email sin espacios y en minúsculas
+    private normalizar(email: string): string {  
         return email.trim().toLowerCase();
     }
 }
