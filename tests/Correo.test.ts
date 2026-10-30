@@ -74,4 +74,14 @@ describe("Correo", () => {
         expect(correo.remitente).toBe(pablo);   //pero el correo lo sigue teniendo
         expect(correo.remitente.email).toBe("pablo@gmail.com");
     });
+
+    test("se crean varios correos con distintos remitentes y destinatarios", () => {
+        const correo1 = new Correo(ana, "Hola", "", [fabrizio]);
+        const correo2 = new Correo(fabrizio, "Respuesta", "", [ana]);
+
+        expect(correo1.remitente).toBe(ana);
+        expect(correo2.remitente).toBe(fabrizio);
+        expect(correo1.destinatarios).toEqual([fabrizio]);
+        expect(correo2.destinatarios).toEqual([ana]);
+    });
 });
