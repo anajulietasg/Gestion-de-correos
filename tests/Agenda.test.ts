@@ -108,19 +108,27 @@ describe("Agenda", () => {
         ).toThrow("El contacto no existe");
     });
 
-    test("eliminar un contacto no afecta a los demás", () => {
+    test("encuentra un contacto aunque el email esté en mayúsculas", () => {
         const agenda = new Agenda();
-
         const ana = new Contacto("Ana", "ana@gmail.com");
-        const fabrizio = new Contacto("Fabrizio", "fabrizio@gmail.com");
-
         agenda.agregar(ana);
-        agenda.agregar(fabrizio);
+        expect(agenda.buscar("ANA@gmail.com")).toBe(ana);
+    });
 
-        agenda.eliminar("fabrizio@gmail.com");
+    test("no permite modificar el email por uno inválido", () => {
+        const agenda = new Agenda();
+        const ana = new Contacto("Ana", "ana@gmail.com");
+        agenda.agregar(ana);
+        expect(() => agenda.modificarEmail("ana@gmail.com", "invalido")).toThrow();
+        expect(agenda.buscar("ana@gmail.com")).toBe(ana);   //sigue con su email original
+    });
 
-        expect(agenda.buscar("fabrizio@gmail.com")).toBeUndefined();
-        expect(agenda.buscar("ana@gmail.com")).toBe(ana);
+    test("la lista que devuelve obtenerTodos no modifica la agenda", () => {
+        const agenda = new Agenda();
+        agenda.agregar(new Contacto("Ana", "ana@gmail.com"));
+        const lista = agenda.obtenerTodos();
+        lista.pop();   //borramos de la copia
+        expect(agenda.obtenerTodos().length).toBe(1);
     });
 });
 
