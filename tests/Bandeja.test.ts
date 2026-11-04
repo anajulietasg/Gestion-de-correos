@@ -2,6 +2,7 @@ import { describe, test, expect } from "vitest";
 import { Bandeja } from "../src/Bandeja";
 import { Correo } from "../src/Correo";
 import { Contacto } from "../src/Contacto";
+import { IConsultarCorreos } from "../src/IConsultarCorreos";
 
 describe("Bandeja", () => {
     const ana = new Contacto("Ana", "ana@gmail.com");
