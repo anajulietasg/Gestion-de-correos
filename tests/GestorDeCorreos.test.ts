@@ -48,4 +48,53 @@ describe("GestorDeCorreos", () => {
         const correo = new Correo(ana, "", "Texto", [fabrizio]);   //sin asunto
         expect(() => gestor.enviar(correo)).toThrow("El correo debe tener asunto");
     });
+
+    test("eliminar mueve el correo de Entrada a Eliminados", () => {
+        const gestor = new GestorDeCorreos();
+        const correo = new Correo(fabrizio, "Hola", "Texto", [ana]);
+        gestor.recibir(correo);
+
+        gestor.eliminar(correo);
+
+        expect(gestor.eliminados.contiene(correo)).toBe(true);
+        expect(gestor.entrada.contiene(correo)).toBe(false);   //salió de Entrada, queda en una sola bandeja
+    });
+
+    test("eliminar también funciona con un correo enviado", () => {
+        const gestor = new GestorDeCorreos();
+        const correo = new Correo(ana, "Hola", "Texto", [fabrizio]);
+        gestor.enviar(correo);
+
+        gestor.eliminar(correo);
+
+        expect(gestor.eliminados.contiene(correo)).toBe(true);
+        expect(gestor.enviados.contiene(correo)).toBe(false);
+    });
+
+    test("no permite eliminar un correo que ya está eliminado", () => {
+        const gestor = new GestorDeCorreos();
+        const correo = new Correo(fabrizio, "Hola", "Texto", [ana]);
+        gestor.recibir(correo);
+        gestor.eliminar(correo);
+
+        expect(() => gestor.eliminar(correo)).toThrow("El correo ya está eliminado");
+        expect(gestor.eliminados.obtenerTodos().length).toBe(1);   //no se duplicó
+    });
+
+    test("no permite eliminar un correo que no está en ninguna bandeja", () => {
+        const gestor = new GestorDeCorreos();
+        const correo = new Correo(fabrizio, "Hola");   //nunca se recibió ni se envió
+        expect(() => gestor.eliminar(correo)).toThrow("El correo no está en ninguna bandeja");
+    });
+
+    test("eliminar no modifica los datos del correo", () => {
+        const gestor = new GestorDeCorreos();
+        const correo = new Correo(fabrizio, "Hola", "Texto", [ana]);
+        gestor.recibir(correo);
+
+        gestor.eliminar(correo);
+
+        expect(correo.asunto).toBe("Hola");
+        expect(correo.remitente).toBe(fabrizio);
+    });
 });

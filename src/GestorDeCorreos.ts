@@ -8,7 +8,8 @@ export class GestorDeCorreos {
     private _borradores = new Bandeja("Borradores");
     private _eliminados = new Bandeja("Eliminados");
     private _enviador = new Enviador(this._enviados);   //crea el Enviador y le pasa la bandeja de arriba, no otra nueva
-
+    private _origenes = new Map<Correo, Bandeja>();   //para cada correo eliminado, guarda de qué bandeja vino
+    
     get entrada(): Bandeja {      //devuelve la bandeja para consultarla
         return this._entrada;
     }
@@ -36,8 +37,25 @@ export class GestorDeCorreos {
         this._enviador.enviar(correo);   //el gestor no valida nada, le delega el trabajo al Enviador
     }
 
+    eliminar(correo: Correo): void {
+        const origen = this.bandejaDe(correo);   //busca en qué bandeja está ahora
+        if (origen === undefined) {
+            throw new Error("El correo no está en ninguna bandeja");
+        }
+        if (origen === this._eliminados) {
+            throw new Error("El correo ya está eliminado");
+        }
+        this._origenes.set(correo, origen);   //recuerda la bandeja de origen para poder restaurarlo
+        this.mover(correo, origen, this._eliminados);
+    }
+
     private bandejaDe(correo: Correo): Bandeja | undefined {   //dice en qué bandeja está el correo, o undefined si no está en ninguna
         const todas = [this._entrada, this._enviados, this._borradores, this._eliminados];
-        return todas.find(bandeja => bandeja.contiene(correo));   //find devuelve la primera bandeja que lo contiene
+        return todas.find(bandeja => bandeja.contiene(correo));   
+    }
+
+    private mover(correo: Correo, origen: Bandeja, destino: Bandeja): void {   
+        origen.quitar(correo);   
+        destino.agregar(correo);
     }
 }
