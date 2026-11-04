@@ -49,6 +49,15 @@ export class GestorDeCorreos {
         this.mover(correo, origen, this._eliminados);
     }
 
+    restaurar(correo: Correo): void {
+        const origen = this._origenes.get(correo);   //busca en el Map de qué bandeja vino y lo devuelve
+        if (origen === undefined || !this._eliminados.contiene(correo)) {
+            throw new Error("El correo no está eliminado");
+        }
+        this.mover(correo, this._eliminados, origen);   
+        this._origenes.delete(correo);   
+    }
+
     private bandejaDe(correo: Correo): Bandeja | undefined {   //dice en qué bandeja está el correo, o undefined si no está en ninguna
         const todas = [this._entrada, this._enviados, this._borradores, this._eliminados];
         return todas.find(bandeja => bandeja.contiene(correo));   

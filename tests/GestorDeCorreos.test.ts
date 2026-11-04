@@ -97,4 +97,51 @@ describe("GestorDeCorreos", () => {
         expect(correo.asunto).toBe("Hola");
         expect(correo.remitente).toBe(fabrizio);
     });
+
+    test("restaurar devuelve el correo a Entrada si vino de ahí", () => {
+        const gestor = new GestorDeCorreos();
+        const correo = new Correo(fabrizio, "Hola", "Texto", [ana]);
+        gestor.recibir(correo);
+        gestor.eliminar(correo);
+
+        gestor.restaurar(correo);
+
+        expect(gestor.entrada.contiene(correo)).toBe(true);
+        expect(gestor.eliminados.contiene(correo)).toBe(false);   
+    });
+
+    test("restaurar devuelve el correo a Enviados si vino de ahí", () => {
+        const gestor = new GestorDeCorreos();
+        const correo = new Correo(ana, "Hola", "Texto", [fabrizio]);
+        gestor.enviar(correo);
+        gestor.eliminar(correo);
+
+        gestor.restaurar(correo);
+
+        expect(gestor.enviados.contiene(correo)).toBe(true);
+        expect(gestor.entrada.contiene(correo)).toBe(false);   
+    });
+
+    test("no permite restaurar un correo que no está eliminado", () => {
+        const gestor = new GestorDeCorreos();
+        const correo = new Correo(fabrizio, "Hola", "Texto", [ana]);
+        gestor.recibir(correo);
+
+        expect(() => gestor.restaurar(correo)).toThrow("El correo no está eliminado");
+        expect(gestor.entrada.contiene(correo)).toBe(true);   //sigue donde estaba
+    });
+
+    test("un correo restaurado se puede volver a eliminar", () => {
+        const gestor = new GestorDeCorreos();
+        const correo = new Correo(fabrizio, "Hola", "Texto", [ana]);
+        gestor.recibir(correo);
+        gestor.eliminar(correo);
+        gestor.restaurar(correo);
+
+        gestor.eliminar(correo);
+
+        expect(gestor.eliminados.contiene(correo)).toBe(true);
+        expect(gestor.eliminados.obtenerTodos().length).toBe(1);
+    });
+
 });
