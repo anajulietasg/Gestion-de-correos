@@ -33,4 +33,33 @@ describe("Bandeja", () => {
         bandeja.obtenerTodos().pop();   //borramos de la copia
         expect(bandeja.obtenerTodos().length).toBe(1);
     });
+
+    test("quita un correo de la bandeja", () => {
+        const bandeja = new Bandeja("Entrada");
+        const correo = new Correo(ana, "Hola");
+        bandeja.agregar(correo);
+
+        bandeja.quitar(correo);
+
+        expect(bandeja.contiene(correo)).toBe(false);
+    });
+
+    test("no permite quitar un correo que no está en la bandeja", () => {
+        const bandeja = new Bandeja("Entrada");
+        const correo = new Correo(ana, "Hola");
+        expect(() => bandeja.quitar(correo)).toThrow("El correo no está en la bandeja");
+    });
+
+    test("quitar un correo no afecta a los demás", () => {
+        const bandeja = new Bandeja("Entrada");
+        const correo1 = new Correo(ana, "Uno");
+        const correo2 = new Correo(ana, "Dos");
+        bandeja.agregar(correo1);
+        bandeja.agregar(correo2);
+
+        bandeja.quitar(correo1);
+
+        expect(bandeja.contiene(correo2)).toBe(true);
+        expect(bandeja.obtenerTodos().length).toBe(1);
+    });
 });

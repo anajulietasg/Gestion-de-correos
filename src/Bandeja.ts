@@ -19,6 +19,13 @@ export class Bandeja {
         this._correos.push(correo);   //guarda el MISMO objeto, no una copia
     }
 
+    quitar(correo: Correo): void {
+        if (!this.contiene(correo)) {
+            throw new Error("El correo no está en la bandeja");
+        }
+        this._correos = this._correos.filter(c => c !== correo);   //lista nueva con todos menos ese correo, guardada en el arributo
+    }
+
     contiene(correo: Correo): boolean {
         return this._correos.includes(correo);   //revisa si ese objeto ya está en la lista
     }
