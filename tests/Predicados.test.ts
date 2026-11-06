@@ -1,7 +1,7 @@
 import { describe, test, expect } from "vitest";
 import { Correo } from "../src/Correo";
 import { Contacto } from "../src/Contacto";
-import { and, type Predicado } from "../src/Predicados";
+import { and, or, type Predicado } from "../src/Predicados";
 
 describe("Predicados", () => {
     const ana = new Contacto("Ana", "ana@ucp.edu.ar");
@@ -34,5 +34,27 @@ describe("Predicados", () => {
     test("and devuelve false cuando ambos predicados son falsos", () => {
         const falso: Predicado = correo => false;
         expect(and(falso, falso)(correo)).toBe(false)
+    });
+
+    test("or devuelve true cuando ambos predicados son verdaderos", () => {
+        const verdadero: Predicado = correo => true;
+        expect(or(verdadero, verdadero)(correo)).toBe(true);
+    });
+
+    test("or devuelve true cuando solo el primero es verdadero", () => {
+        const verdadero: Predicado = correo => true;
+        const falso: Predicado = correo => false;
+        expect(or(verdadero, falso)(correo)).toBe(true);
+    });
+
+    test("or devuelve true cuando solo el segundo es verdadero", () => {
+        const verdadero: Predicado = correo => true;
+        const falso: Predicado = correo => false;
+        expect(or(falso, verdadero)(correo)).toBe(true);
+    });
+
+    test("or devuelve false cuando ambos son falsos", () => {
+        const falso: Predicado = correo => false;
+        expect(or(falso, falso)(correo)).toBe(false);
     });
 });
