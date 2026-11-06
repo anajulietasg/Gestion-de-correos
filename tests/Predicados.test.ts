@@ -1,7 +1,7 @@
 import { describe, test, expect } from "vitest";
 import { Correo } from "../src/Correo";
 import { Contacto } from "../src/Contacto";
-import { and, or, type Predicado } from "../src/Predicados";
+import { and, or, not, type Predicado } from "../src/Predicados";
 
 describe("Predicados", () => {
     const ana = new Contacto("Ana", "ana@ucp.edu.ar");
@@ -56,5 +56,15 @@ describe("Predicados", () => {
     test("or devuelve false cuando ambos son falsos", () => {
         const falso: Predicado = correo => false;
         expect(or(falso, falso)(correo)).toBe(false);
+    });
+
+    test("not convierte true en false", () => {
+        const verdadero: Predicado = correo => true;
+        expect(not(verdadero)(correo)).toBe(false);
+    });
+
+    test("not convierte false en true", () => {
+        const falso: Predicado = correo => false;
+        expect(not(falso)(correo)).toBe(true);
     });
 });
