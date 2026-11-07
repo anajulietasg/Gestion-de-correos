@@ -59,4 +59,32 @@ describe("Filtros compuestos", () => {
         expect(filtro.aplicar(bandeja)).toEqual([correo1, correo3]);
         expect(bandeja.obtenerTodos()).toHaveLength(3);
     });
+
+    test("filtra correos para seguimiento", () => {
+        const bandeja = new Bandeja("Entrada");
+
+        const correo1 = new Correo(ana, "Proyecto AE4");
+        const correo2 = new Correo(fabrizio, "Reunión del grupo");
+        const correo3 = new Correo(ana, "Examen final");
+
+        bandeja.agregar(correo1);
+        bandeja.agregar(correo2);
+        bandeja.agregar(correo3);
+
+        const tieneProyecto: Predicado = correo =>
+            correo.asunto.toLowerCase().includes("proyecto");
+
+        const tieneReunion: Predicado = correo =>
+            correo.asunto.toLowerCase().includes("reunión");
+
+        const estaLeido: Predicado = correo => correo.leido;
+
+        const filtro = new Filtro(
+            "Correos para seguimiento",
+            and(or(tieneProyecto, tieneReunion), not(estaLeido))
+        );
+
+        expect(filtro.aplicar(bandeja)).toEqual([correo1, correo2]);
+        expect(bandeja.obtenerTodos()).toHaveLength(3);
+    });
 });
