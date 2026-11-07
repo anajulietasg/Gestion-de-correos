@@ -75,4 +75,48 @@ describe("Filtro", () => {
         expect(resultados).toEqual([]);
         expect(bandeja.contiene(correo)).toBe(true);
     });
+
+    test("permite reutilizar un filtro en distintas bandejas", () => {
+        const ana = new Contacto("Ana", "ana@ucp.edu.ar");
+
+        const correo1 = new Correo(ana, "Examen de Paradigmas");
+        const correo2 = new Correo(ana, "Examen final");
+
+        const entrada = new Bandeja("Entrada");
+        const enviados = new Bandeja("Enviados");
+
+        entrada.agregar(correo1);
+        enviados.agregar(correo2);
+
+        const tieneExamen: Predicado = correo =>
+            correo.asunto.toLowerCase().includes("examen");
+
+        const filtro = new Filtro("Exámenes", tieneExamen);
+
+        expect(filtro.aplicar(entrada)).toEqual([correo1]);
+        expect(filtro.aplicar(enviados)).toEqual([correo2]);
+
+        expect(entrada.obtenerTodos()).toEqual([correo1]);
+        expect(enviados.obtenerTodos()).toEqual([correo2]);
+    });
+
+    test("actualiza los resultados cuando cambia el asunto de un correo", () => {
+        const ana = new Contacto("Ana", "ana@ucp.edu.ar");
+        const correo = new Correo(ana, "Trabajo práctico");
+
+        const bandeja = new Bandeja("Entrada");
+        bandeja.agregar(correo);
+
+        const tieneExamen: Predicado = correo =>
+            correo.asunto.toLowerCase().includes("examen");
+
+        const filtro = new Filtro("Exámenes", tieneExamen);
+
+        expect(filtro.aplicar(bandeja)).toEqual([]);
+
+        correo.asunto = "Examen de Paradigmas";
+
+        expect(filtro.aplicar(bandeja)).toEqual([correo]);
+        expect(bandeja.obtenerTodos()).toEqual([correo]);
+    });
     });
