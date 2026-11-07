@@ -84,4 +84,14 @@ describe("Correo", () => {
         expect(correo1.destinatarios).toEqual([fabrizio]);
         expect(correo2.destinatarios).toEqual([ana]);
     });
-});
+
+    test("permite marcar un correo como leido", () => {
+        const correo = new Correo(ana, "Examen de Paradigmas");
+
+        expect(correo.leido).toBe(false);
+
+        correo.marcarComoLeido();
+
+        expect(correo.leido).toBe(true);
+    });
+    });

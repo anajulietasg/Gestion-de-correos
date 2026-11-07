@@ -58,6 +58,11 @@ describe("Filtros compuestos", () => {
 
         expect(filtro.aplicar(bandeja)).toEqual([correo1, correo3]);
         expect(bandeja.obtenerTodos()).toHaveLength(3);
+        
+        correo1.marcarComoLeido();
+
+        expect(filtro.aplicar(bandeja)).toEqual([correo3]);
+        expect(bandeja.obtenerTodos()).toHaveLength(3);
     });
 
     test("filtra correos para seguimiento", () => {
