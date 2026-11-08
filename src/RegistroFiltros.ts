@@ -8,6 +8,10 @@ export class RegistroFiltros {
             throw new Error("No se pueden registrar más de cinco filtros");
         }
 
+        if (this._filtros.some(f => f.nombre === filtro.nombre)) {          //some revisa si alguno ya tiene ese nombre
+            throw new Error("Ya existe un filtro con ese nombre");
+        }
+
         this._filtros.push(filtro);
     }
 

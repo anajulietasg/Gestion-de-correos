@@ -45,4 +45,14 @@ describe("RegistroFiltros", () => {
 
         expect(registro.obtenerTodos()).toHaveLength(1);
     });
+
+    test("rechaza registrar un filtro con nombre repetido", () => {
+        const registro = new RegistroFiltros();
+        registro.registrar(new Filtro("Exámenes", verdadero));
+
+        expect(() =>
+            registro.registrar(new Filtro("Exámenes", verdadero))
+        ).toThrow("Ya existe un filtro con ese nombre");
+        expect(registro.obtenerTodos()).toHaveLength(1);
+    });
 });

@@ -8,13 +8,13 @@ export const and = (
     ): Predicado => correo =>
     primero(correo) && segundo(correo);
 
-    export const or = (
+export const or = (
     primero: Predicado,
     segundo: Predicado
     ): Predicado => correo =>
     primero(correo) || segundo(correo);
 
-    export const not = (
+export const not = (
     predicado: Predicado
     ): Predicado => correo =>
     !predicado(correo);
