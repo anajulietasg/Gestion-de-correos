@@ -1,4 +1,5 @@
 import { Correo } from "./Correo";
+import { Contacto } from "./Contacto";
 
 export type Predicado = (correo: Correo) => boolean;
 
@@ -32,3 +33,11 @@ export const cuerpoContiene = (texto: string): Predicado =>
 
 export const estaLeido: Predicado =
     correo => correo.leido;     //no recibe parámetros, solo pregunta si el correo está leído
+
+
+const contactoContiene = (contacto: Contacto, texto: string): boolean =>
+    contacto.nombre.toLowerCase().includes(texto.toLowerCase()) ||
+    contacto.email.includes(texto.toLowerCase());   
+
+export const remitenteContiene = (texto: string): Predicado =>
+    correo => contactoContiene(correo.remitente, texto);      //le pasa el Contacto remitente del correo

@@ -40,5 +40,36 @@ describe("Búsqueda", () => {
 
         expect(buscar(bandeja, "digma")).toEqual([correo]);      //solo una parte de la palabra
     });
-    
+
+    test("devuelve una lista vacía si no hay coincidencias", () => {
+        const bandeja = new Bandeja("Entrada");
+        bandeja.agregar(new Correo(ana, "Hola"));
+
+        expect(buscar(bandeja, "examen")).toEqual([]);
+    });
+
+    test("funciona sobre una bandeja vacía", () => {
+        const bandeja = new Bandeja("Entrada");
+        expect(buscar(bandeja, "examen")).toEqual([]);
+    });
+
+    test("encuentra correos por el nombre del remitente", () => {
+        const bandeja = new Bandeja("Entrada");
+        const profe = new Contacto("Walter", "wgomez@ucp.edu.ar");
+        const correo = new Correo(profe, "Aviso");
+        bandeja.agregar(correo);
+
+        expect(buscar(bandeja, "walter")).toEqual([correo]);
+    });
+
+    test("encuentra correos por el email del remitente", () => {
+        const bandeja = new Bandeja("Entrada");
+        const profe = new Contacto("Walter", "wgomez@ucp.edu.ar");
+        const correo = new Correo(profe, "Aviso");
+        bandeja.agregar(correo);
+
+        expect(buscar(bandeja, "ucp.edu")).toEqual([correo]);   //parte del email
+    });
+
+
 });
