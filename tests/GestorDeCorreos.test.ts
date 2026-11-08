@@ -144,4 +144,33 @@ describe("GestorDeCorreos", () => {
         expect(gestor.eliminados.obtenerTodos().length).toBe(1);
     });
 
+    test("busca en la bandeja de Entrada", () => {
+        const gestor = new GestorDeCorreos();
+        const correo = new Correo(fabrizio, "Examen final", "Texto", [ana]);
+        gestor.recibir(correo);
+
+        expect(gestor.buscarEnEntrada("examen")).toEqual([correo]);
+    });
+
+    test("no encuentra correos que están en otras bandejas", () => {
+        const gestor = new GestorDeCorreos();
+        const correo = new Correo(ana, "Examen final", "Texto", [fabrizio]);
+        gestor.enviar(correo);       //queda en Enviados, no en Entrada
+
+        expect(gestor.buscarEnEntrada("examen")).toEqual([]);
+    });
+
+    test("un correo eliminado no aparece en la búsqueda hasta que se restaura", () => {
+        const gestor = new GestorDeCorreos();
+        const correo = new Correo(fabrizio, "Examen final", "Texto", [ana]);
+        gestor.recibir(correo);
+
+        gestor.eliminar(correo);
+        expect(gestor.buscarEnEntrada("examen")).toEqual([]);   //salió de Entrada
+
+        gestor.restaurar(correo);
+        expect(gestor.buscarEnEntrada("examen")).toEqual([correo]);   //volvió a Entrada
+    });
+
+
 });

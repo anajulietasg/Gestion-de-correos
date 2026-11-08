@@ -1,6 +1,7 @@
 import { Bandeja } from "./Bandeja";
 import { Correo } from "./Correo";
 import { Enviador } from "./Enviador";
+import { buscar } from "./Busqueda";
 
 export class GestorDeCorreos {
     private _entrada = new Bandeja("Entrada");       //crea la bandeja de recibidos
@@ -57,6 +58,11 @@ export class GestorDeCorreos {
         this.mover(correo, this._eliminados, origen);   
         this._origenes.delete(correo);   
     }
+
+    buscarEnEntrada(texto: string): Correo[] {
+        return buscar(this._entrada, texto);       //le pasa la bandeja de entrada, entra como IConsultarCorreos
+    }   
+
 
     private bandejaDe(correo: Correo): Bandeja | undefined {   //dice en qué bandeja está el correo, o undefined si no está en ninguna
         const todas = [this._entrada, this._enviados, this._borradores, this._eliminados];
