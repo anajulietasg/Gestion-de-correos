@@ -1,6 +1,6 @@
 import { describe, test, expect } from "vitest";
 import { Filtro } from "../src/Filtro";
-import type { Predicado } from "../src/Predicados";
+import { asuntoContiene, type Predicado } from "../src/Predicados";
 import { Bandeja } from "../src/Bandeja";
 import { Correo } from "../src/Correo";
 import { Contacto } from "../src/Contacto";
@@ -27,8 +27,7 @@ describe("Filtro", () => {
         bandeja.agregar(correo1);
         bandeja.agregar(correo2);
 
-        const tieneExamen: Predicado = correo =>
-        correo.asunto.toLowerCase().includes("examen");
+        const tieneExamen = asuntoContiene("examen");
 
         const filtro = new Filtro("Correos de exámenes", tieneExamen);
 
@@ -47,8 +46,7 @@ describe("Filtro", () => {
         bandeja.agregar(correo1);
         bandeja.agregar(correo2);
 
-        const tieneExamen: Predicado = correo =>
-        correo.asunto.toLowerCase().includes("examen");
+        const tieneExamen = asuntoContiene("examen");
 
         const filtro = new Filtro("Exámenes", tieneExamen);
 
@@ -65,9 +63,7 @@ describe("Filtro", () => {
         const bandeja = new Bandeja("Entrada");
         bandeja.agregar(correo);
 
-        const tieneExamen: Predicado = correo =>
-        correo.asunto.toLowerCase().includes("examen");
-
+        const tieneExamen = asuntoContiene("examen");
         const filtro = new Filtro("Exámenes", tieneExamen);
 
         const resultados = filtro.aplicar(bandeja);
@@ -88,9 +84,7 @@ describe("Filtro", () => {
         entrada.agregar(correo1);
         enviados.agregar(correo2);
 
-        const tieneExamen: Predicado = correo =>
-            correo.asunto.toLowerCase().includes("examen");
-
+        const tieneExamen = asuntoContiene("examen");
         const filtro = new Filtro("Exámenes", tieneExamen);
 
         expect(filtro.aplicar(entrada)).toEqual([correo1]);
@@ -107,9 +101,7 @@ describe("Filtro", () => {
         const bandeja = new Bandeja("Entrada");
         bandeja.agregar(correo);
 
-        const tieneExamen: Predicado = correo =>
-            correo.asunto.toLowerCase().includes("examen");
-
+        const tieneExamen = asuntoContiene("examen");
         const filtro = new Filtro("Exámenes", tieneExamen);
 
         expect(filtro.aplicar(bandeja)).toEqual([]);
@@ -119,4 +111,4 @@ describe("Filtro", () => {
         expect(filtro.aplicar(bandeja)).toEqual([correo]);
         expect(bandeja.obtenerTodos()).toEqual([correo]);
     });
-    });
+});
