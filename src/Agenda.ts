@@ -1,4 +1,5 @@
 import { Contacto } from "./Contacto";
+import { ValidadorEmail } from "./ValidadorEmail";
 
 export class Agenda {
     
@@ -14,7 +15,7 @@ export class Agenda {
     }
 
     buscar(email:string): Contacto | undefined {
-        const buscado = this.normalizar(email);  //así "Ana@..." encuentra a "ana@..."
+        const buscado = ValidadorEmail.normalizar(email);  //así "Ana@..." encuentra a "ana@..."
         //busca el primer contacto que tenga el mail indicado, sino devuelve undefined
         return this.contactos.find(contacto => contacto.email === buscado);
     }
@@ -60,13 +61,10 @@ export class Agenda {
     }
     //revisa si el email ya lo tiene algún contacto
     private emailEnUso(email: string, excepto?: Contacto): boolean {
-        const buscado = this.normalizar(email);
+        const buscado = ValidadorEmail.normalizar(email);  
         return this.contactos.some(
             existente => existente !== excepto && existente.email === buscado
         );
     }
-    //deja el email sin espacios y en minúsculas
-    private normalizar(email: string): string {  
-        return email.trim().toLowerCase();
-    }
+
 }

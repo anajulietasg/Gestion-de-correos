@@ -34,7 +34,7 @@ export class Contacto {
     }
 
     private validarEmail(email: string): string {
-        const normalizado = email.trim().toLowerCase();   //lo normaliza, sin espacios y en minúsculas
+        const normalizado = ValidadorEmail.normalizar(email);   //lo normaliza, sin espacios y en minúsculas
         if (!ValidadorEmail.esValido(normalizado)) {      //pregunta a ValidadorEmail si el formato es correcto
             throw new Error("Email no válido");
         }

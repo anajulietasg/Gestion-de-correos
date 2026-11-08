@@ -8,4 +8,7 @@ export class ValidadorEmail {
     }   
     //no hace falta crear un objeto porque no guarda ningún dato propio
     //recibe un texto y devuelve verdadero o falso
+    static normalizar(email: string): string {
+        return email.trim().toLowerCase();   //quita espacios y pasa a minúsculas
+    }
 }

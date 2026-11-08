@@ -21,4 +21,8 @@ describe("ValidadorEmail", () => {
     test("rechaza un email con espacios", () => {
         expect(ValidadorEmail.esValido("ana @ucp.edu.ar")).toBe(false);
     });
+
+    test("normaliza el email sin espacios y en minúsculas", () => {
+        expect(ValidadorEmail.normalizar("  Ana@UCP.edu.ar ")).toBe("ana@ucp.edu.ar");
+    });
 });
