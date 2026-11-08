@@ -2,6 +2,7 @@ import { Bandeja } from "./Bandeja";
 import { Correo } from "./Correo";
 import { Enviador } from "./Enviador";
 import { buscar } from "./Busqueda";
+import type { IConsultarCorreos } from "./IConsultarCorreos";
 
 export class GestorDeCorreos {
     private _entrada = new Bandeja("Entrada");       //crea la bandeja de recibidos
@@ -11,19 +12,19 @@ export class GestorDeCorreos {
     private _enviador = new Enviador(this._enviados);   //crea el Enviador y le pasa la bandeja de arriba, no otra nueva
     private _origenes = new Map<Correo, Bandeja>();   //para cada correo eliminado, guarda de qué bandeja vino
     
-    get entrada(): Bandeja {      //devuelve la bandeja para consultarla
+    get entrada(): IConsultarCorreos {      //solo se puede consultar la bandeja, no modificarla desde afuera
         return this._entrada;
     }
 
-    get enviados(): Bandeja {
+    get enviados(): IConsultarCorreos {
         return this._enviados;
     }
 
-    get borradores(): Bandeja {
+    get borradores(): IConsultarCorreos {
         return this._borradores;
     }
 
-    get eliminados(): Bandeja {
+    get eliminados(): IConsultarCorreos {
         return this._eliminados;
     }
 
