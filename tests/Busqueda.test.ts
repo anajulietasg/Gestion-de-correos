@@ -71,5 +71,43 @@ describe("Búsqueda", () => {
         expect(buscar(bandeja, "ucp.edu")).toEqual([correo]);   //parte del email
     });
 
+    test("encuentra correos por el nombre de un destinatario", () => {
+        const bandeja = new Bandeja("Entrada");
+        const fabrizio = new Contacto("Fabrizio", "fabrizio@gmail.com");
+        const correo = new Correo(ana, "Hola", "", [fabrizio]);
+        bandeja.agregar(correo);
+
+        expect(buscar(bandeja, "fabri")).toEqual([correo]);
+    });
+
+    test("encuentra el correo aunque coincida un destinatario que no es el primero", () => {
+        const bandeja = new Bandeja("Entrada");
+        const fabrizio = new Contacto("Fabrizio", "fabrizio@gmail.com");
+        const pablo = new Contacto("Pablo", "pablo@hotmail.com");
+        const correo = new Correo(ana, "Hola", "", [fabrizio, pablo]);
+        bandeja.agregar(correo);
+
+        expect(buscar(bandeja, "hotmail")).toEqual([correo]);  
+    });
+
+    test("un correo aparece una sola vez aunque coincida en varios campos", () => {
+        const bandeja = new Bandeja("Entrada");
+        const correo = new Correo(ana, "Ana confirmó", "Saludos de Ana", []);     //"ana" está en el remitente, el asunto y el cuerpo
+        bandeja.agregar(correo);
+
+        expect(buscar(bandeja, "ana")).toEqual([correo]);      //uno solo, no tres
+    });
+
+    test("la búsqueda no modifica los correos ni la bandeja", () => {
+        const bandeja = new Bandeja("Entrada");
+        const correo = new Correo(ana, "Examen", "Texto");
+        bandeja.agregar(correo);
+
+        buscar(bandeja, "examen");
+
+        expect(correo.asunto).toBe("Examen");
+        expect(bandeja.obtenerTodos()).toEqual([correo]);
+    });
+
 
 });

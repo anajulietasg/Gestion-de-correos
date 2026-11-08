@@ -41,3 +41,6 @@ const contactoContiene = (contacto: Contacto, texto: string): boolean =>
 
 export const remitenteContiene = (texto: string): Predicado =>
     correo => contactoContiene(correo.remitente, texto);      //le pasa el Contacto remitente del correo
+
+export const algunDestinatarioContiene = (texto: string): Predicado =>
+    correo => correo.destinatarios.some(destinatario => contactoContiene(destinatario, texto));  
