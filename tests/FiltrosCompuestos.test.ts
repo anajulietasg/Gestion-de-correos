@@ -3,7 +3,7 @@ import { Contacto } from "../src/Contacto";
 import { Correo } from "../src/Correo";
 import { Bandeja } from "../src/Bandeja";
 import { Filtro } from "../src/Filtro";
-import { and, or, not, type Predicado } from "../src/Predicados";
+import { and, or, not, remitenteDeDominio, asuntoContiene, cuerpoContiene, estaLeido } from "../src/Predicados";
 
 describe("Filtros compuestos", () => {
     const ana = new Contacto("Ana", "ana@ucp.edu.ar");
@@ -20,11 +20,8 @@ describe("Filtros compuestos", () => {
         bandeja.agregar(correo2);
         bandeja.agregar(correo3);
 
-        const esUCP: Predicado = correo =>
-            correo.remitente.email.endsWith("@ucp.edu.ar");
-
-        const tieneExamen: Predicado = correo =>
-            correo.asunto.toLowerCase().includes("examen");
+        const esUCP = remitenteDeDominio("@ucp.edu.ar");
+        const tieneExamen = asuntoContiene("examen");
 
         const filtro = new Filtro(
             "Académicos importantes",
@@ -46,10 +43,8 @@ describe("Filtros compuestos", () => {
         bandeja.agregar(correo2);
         bandeja.agregar(correo3);
 
-        const noLeido: Predicado = correo => !correo.leido;
-
-        const tieneEntrega: Predicado = correo =>
-            correo.cuerpo.toLowerCase().includes("entrega");
+        const noLeido = not(estaLeido);
+        const tieneEntrega = cuerpoContiene("entrega");
 
         const filtro = new Filtro(
             "Pendientes de revisión",
@@ -76,13 +71,8 @@ describe("Filtros compuestos", () => {
         bandeja.agregar(correo2);
         bandeja.agregar(correo3);
 
-        const tieneProyecto: Predicado = correo =>
-            correo.asunto.toLowerCase().includes("proyecto");
-
-        const tieneReunion: Predicado = correo =>
-            correo.asunto.toLowerCase().includes("reunión");
-
-        const estaLeido: Predicado = correo => correo.leido;
+        const tieneProyecto = asuntoContiene("proyecto");
+        const tieneReunion = asuntoContiene("reunión");
 
         const filtro = new Filtro(
             "Correos para seguimiento",
