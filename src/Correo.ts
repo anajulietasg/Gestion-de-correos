@@ -66,7 +66,7 @@ export class Correo {
         }
     }
 
-    copiar(): Correo {   //crea un nuevo correo con los mismos datos, distinto id, cara destinatario recibe el suyo
+    copiar(): Correo {     //crea un nuevo correo con los mismos datos, distinto id, cara destinatario recibe el suyo
         return new Correo(this._remitente, this._asunto, this._cuerpo, this._destinatarios);
     }
 
