@@ -108,4 +108,45 @@ describe("Correo", () => {
         expect(correo.favorito).toBe(false);
     });
 
+    test("copiar crea un correo nuevo con los mismos datos", () => {
+        const original = new Correo(ana, "Reunión", "Mañana a las 10", [fabrizio]);
+
+        const copia = original.copiar();
+
+        expect(copia).not.toBe(original);   //NO es el mismo objeto
+        expect(copia.id).not.toBe(original.id);
+        expect(copia.asunto).toBe("Reunión");
+        expect(copia.cuerpo).toBe("Mañana a las 10");
+        expect(copia.remitente).toBe(ana);   //el remitente sí es el mismo Contacto
+        expect(copia.destinatarios).toEqual([fabrizio]);
+    });
+
+    test("marcar la copia como favorita no cambia el original", () => {
+        const original = new Correo(ana, "Reunión", "", [fabrizio]);
+        const copia = original.copiar();
+
+        copia.marcarComoFavorito();
+
+        expect(copia.favorito).toBe(true);
+        expect(original.favorito).toBe(false);   //cada objeto tiene su propio favorito
+    });
+
+    test("marcar la copia como leída no cambia el original", () => {
+        const original = new Correo(ana, "Reunión", "", [fabrizio]);
+        const copia = original.copiar();
+
+        copia.marcarComoLeido();
+
+        expect(copia.leido).toBe(true);
+        expect(original.leido).toBe(false);
+    });
+
+    test("la copia no hereda el favorito del original", () => {
+        const original = new Correo(ana, "Reunión", "", [fabrizio]);
+        original.marcarComoFavorito();   //borrador macrado como favorito por el remitente
+
+        const copia = original.copiar();
+
+        expect(copia.favorito).toBe(false);   
+    });
 });

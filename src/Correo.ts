@@ -66,6 +66,10 @@ export class Correo {
         }
     }
 
+    copiar(): Correo {   //crea un nuevo correo con los mismos datos, distinto id, cara destinatario recibe el suyo
+        return new Correo(this._remitente, this._asunto, this._cuerpo, this._destinatarios);
+    }
+
     marcarComoFavorito(): void {    //cambia el estado de este correo en particular.
         this._favorito = true;
     }
@@ -73,4 +77,6 @@ export class Correo {
     desmarcarComoFavorito(): void {
         this._favorito = false;
     }
+
+
 }
