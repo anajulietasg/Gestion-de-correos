@@ -70,16 +70,6 @@ describe("GestorDeCorreos", () => {
         expect(gestor.enviados.obtenerTodos()).not.toContain(correo);
     });
 
-    test("no permite eliminar un correo que ya está eliminado", () => {
-        const gestor = new GestorDeCorreos();
-        const correo = new Correo(fabrizio, "Hola", "Texto", [ana]);
-        gestor.recibir(correo);
-        gestor.eliminar(correo);
-
-        expect(() => gestor.eliminar(correo)).toThrow("El correo ya está eliminado");
-        expect(gestor.eliminados.obtenerTodos().length).toBe(1);   //no se duplicó
-    });
-
     test("no permite eliminar un correo que no está en ninguna bandeja", () => {
         const gestor = new GestorDeCorreos();
         const correo = new Correo(fabrizio, "Hola");   //nunca se recibió ni se envió
@@ -109,18 +99,6 @@ describe("GestorDeCorreos", () => {
         expect(gestor.eliminados.obtenerTodos()).not.toContain(correo);   
     });
 
-    test("restaurar devuelve el correo a Enviados si vino de ahí", () => {
-        const gestor = new GestorDeCorreos();
-        const correo = new Correo(ana, "Hola", "Texto", [fabrizio]);
-        gestor.enviar(correo);
-        gestor.eliminar(correo);
-
-        gestor.restaurar(correo);
-
-        expect(gestor.enviados.obtenerTodos()).toContain(correo);
-        expect(gestor.entrada.obtenerTodos()).not.toContain(correo);   
-    });
-
     test("no permite restaurar un correo que no está eliminado", () => {
         const gestor = new GestorDeCorreos();
         const correo = new Correo(fabrizio, "Hola", "Texto", [ana]);
@@ -143,6 +121,18 @@ describe("GestorDeCorreos", () => {
         expect(gestor.eliminados.obtenerTodos().length).toBe(1);
     });
 
+    test("restaurar devuelve el correo a Enviados si vino de ahí", () => {
+        const gestor = new GestorDeCorreos();
+        const correo = new Correo(ana, "Hola", "Texto", [fabrizio]);
+        gestor.enviar(correo);
+        gestor.eliminar(correo);
+
+        gestor.restaurar(correo);
+
+        expect(gestor.enviados.obtenerTodos()).toContain(correo);
+        expect(gestor.entrada.obtenerTodos()).not.toContain(correo);   
+    });
+
     test("las bandejas del gestor solo se pueden consultar desde afuera", () => {
         const gestor = new GestorDeCorreos();
         const correo = new Correo(fabrizio, "Hola", "Texto", [ana]);
@@ -151,6 +141,16 @@ describe("GestorDeCorreos", () => {
         gestor.entrada.obtenerTodos().pop();        //sacamos el correo de la copia 
 
         expect(gestor.entrada.obtenerTodos()).toContain(correo);     //la bandeja real sigue teniéndolo
+    });
+
+    test("no permite eliminar un correo que ya está eliminado", () => {
+        const gestor = new GestorDeCorreos();
+        const correo = new Correo(fabrizio, "Hola", "Texto", [ana]);
+        gestor.recibir(correo);
+        gestor.eliminar(correo);
+
+        expect(() => gestor.eliminar(correo)).toThrow("El correo ya está eliminado");
+        expect(gestor.eliminados.obtenerTodos().length).toBe(1);   //no se duplicó
     });
 
     test("busca en la bandeja de Entrada", () => {

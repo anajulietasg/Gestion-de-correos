@@ -65,4 +65,12 @@ export class Correo {
             this._destinatarios.push(contacto);
         }
     }
+
+    marcarComoFavorito(): void {    //cambia el estado de este correo en particular.
+        this._favorito = true;
+    }
+
+    desmarcarComoFavorito(): void {
+        this._favorito = false;
+    }
 }

@@ -16,6 +16,6 @@ export class Filtro {
     }
 
     aplicar(coleccion: IConsultarCorreos): Correo[] {
-    return coleccion.obtenerTodos().filter(this._predicado);
+        return coleccion.obtenerTodos().filter(this._predicado);
     }
 }

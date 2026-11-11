@@ -2,7 +2,7 @@ import { Bandeja } from "./Bandeja";
 import { Correo } from "./Correo";
 
 export class Enviador {
-    private _bandeja: Bandeja;      ////la bandeja donde va a guardar los correos que envíe
+    private _bandeja: Bandeja;      //la bandeja donde va a guardar los correos que envíe
 
     constructor(enviados: Bandeja) {   //recibe la bandeja de afuera en vez de crearla
         this._bandeja = enviados;       //la guarda en un atributo para usarla después

@@ -94,4 +94,18 @@ describe("Correo", () => {
 
         expect(correo.leido).toBe(true);
     });
+
+    test("se puede marcar un correo como favorito" , () => {
+        const correo = new Correo(ana, "Examen de Paradigmas");
+        correo.marcarComoFavorito();
+        expect(correo.favorito).toBe(true);
     });
+
+    test("se puede desmarcar un correo favorito" , () => {
+        const correo = new Correo(ana, "Examen de Paradigmas");
+        correo.marcarComoFavorito();
+        correo.desmarcarComoFavorito();
+        expect(correo.favorito).toBe(false);
+    });
+
+});
