@@ -3,6 +3,18 @@ import { Enviador } from "../src/Enviador";
 import { Bandeja } from "../src/Bandeja";
 import { Correo } from "../src/Correo";
 import { Contacto } from "../src/Contacto";
+import type { IGuardarCorreos } from "../src/IGuardarCorreos";
+
+class GuardadoDePrueba implements IGuardarCorreos {   //para probar el Enviador sin usar Bandeja
+    guardados: Correo[] = [];
+    agregar(correo: Correo): void {
+        this.guardados.push(correo);
+    }
+
+    contiene(correo: Correo): boolean {
+        return this.guardados.includes(correo);
+    }
+}
 
 describe("Enviador", () => {
     const ana = new Contacto("Ana", "ana@gmail.com");
