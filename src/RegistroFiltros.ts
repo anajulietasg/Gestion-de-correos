@@ -12,7 +12,7 @@ export class RegistroFiltros {
             throw new Error("Ya existe un filtro con ese nombre");
         }
 
-        this._filtros.push(filtro);
+        this._filtros = [...this._filtros, filtro];
     }
 
     obtenerTodos(): Filtro[] {

@@ -36,13 +36,13 @@ describe("Correo", () => {
     test("modificar la lista de afuera no cambia los destinatarios del correo", () => {
         const lista = [fabrizio];
         const correo = new Correo(ana, "Hola", "", lista);
-        lista.push(ana);   //cambiamos la lista original
+        lista.push(ana)     //cambiamos la lista original
         expect(correo.destinatarios.length).toBe(1);   //el correo sigue con uno solo
     });
 
     test("modificar la lista que devuelve no cambia el correo", () => {
         const correo = new Correo(ana, "Hola", "", [fabrizio]);
-        correo.destinatarios.push(ana);   //intentamos agregar desde afuera
+        correo.destinatarios.push(ana);        //intentamos agregar desde afuera
         expect(correo.destinatarios.length).toBe(1);
     });
 

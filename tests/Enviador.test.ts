@@ -8,7 +8,7 @@ import type { IGuardarCorreos } from "../src/IGuardarCorreos";
 class GuardadoDePrueba implements IGuardarCorreos {   //para probar el Enviador sin usar Bandeja
     guardados: Correo[] = [];
     agregar(correo: Correo): void {
-        this.guardados.push(correo);
+        this.guardados = [...this.guardados, correo];   
     }
 
     contiene(correo: Correo): boolean {
@@ -77,5 +77,13 @@ describe("Enviador", () => {
 
         expect(enviados.contiene(correo)).toBe(true);
         expect(correo.destinatarios.length).toBe(2);
+    });
+
+    test("el Enviador puede usar cualquier cosa que cumpla la interfaz IGuardarCorreos", () => {
+        const guardado = new GuardadoDePrueba();
+        const enviador = new Enviador(guardado);
+        const correo = new Correo(ana, "Hola", "Texto", [fabrizio]);
+        enviador.enviar(correo);
+        expect(guardado.contiene(correo)).toBe(true);      //Enviador lo guardó sin saber qué clase era
     });
 });

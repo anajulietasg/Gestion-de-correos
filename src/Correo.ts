@@ -61,8 +61,8 @@ export class Correo {
     }
 
     agregarDestinatario(contacto: Contacto): void {   //la única forma de sumar un destinatario
-        if (!this._destinatarios.includes(contacto)) {   //includes revisa si ese objeto ya está en la lista
-            this._destinatarios.push(contacto);
+        if (!this._destinatarios.includes(contacto)) {   
+            this._destinatarios = [...this._destinatarios, contacto];
         }
     }
 

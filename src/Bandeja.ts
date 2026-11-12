@@ -18,7 +18,7 @@ export class Bandeja implements IConsultarCorreos, IGuardarCorreos {
         if (this.contiene(correo)) {
             throw new Error("El correo ya está en la bandeja");
         }
-        this._correos.push(correo);   //guarda el MISMO objeto, no una copia
+        this._correos= [...this._correos, correo];   //arma una lista nueva y lo guarda en el atributo
     }
 
     quitar(correo: Correo): void {

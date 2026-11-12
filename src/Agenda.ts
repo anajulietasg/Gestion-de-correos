@@ -11,7 +11,7 @@ export class Agenda {
             throw new Error("El contacto ya existe")
         }
         //si no está repetido, arega el contacto al arreglo
-        this.contactos.push(contacto);
+        this.contactos = [...this.contactos, contacto];
     }
 
     buscar(email:string): Contacto | undefined {
