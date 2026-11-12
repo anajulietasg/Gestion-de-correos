@@ -1,11 +1,11 @@
-import { Bandeja } from "./Bandeja";
+import type {IGuardarCorreos} from "./IGuardarCorreos";
 import { Correo } from "./Correo";
 
 export class Enviador {
-    private _bandeja: Bandeja;      //la bandeja donde va a guardar los correos que envíe
+    private _bandeja: IGuardarCorreos;      //solo sabe que puede guardar y consultar si contiene
 
-    constructor(enviados: Bandeja) {   //recibe la bandeja de afuera en vez de crearla
-        this._bandeja = enviados;       //la guarda en un atributo para usarla después
+    constructor(bandeja: IGuardarCorreos) {   //acepta cualquier cosa que cumpla la interfaz
+        this._bandeja = bandeja;       
     }
 
     enviar(correo: Correo): void {

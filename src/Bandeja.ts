@@ -1,7 +1,8 @@
 import { Correo } from "./Correo";
 import { IConsultarCorreos } from "./IConsultarCorreos";
+import type { IGuardarCorreos } from "./IGuardarCorreos";
 
-export class Bandeja implements IConsultarCorreos {
+export class Bandeja implements IConsultarCorreos, IGuardarCorreos {
     private _nombre: string;
     private _correos: Correo[] = [];   //arranca vacía
 
