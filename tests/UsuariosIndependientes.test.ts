@@ -117,4 +117,18 @@ describe("Usuarios con bandejas independientes", () => {
         expect(servidor.cuentaDe("pablo@gmail.com").favoritos.obtenerTodos()).toEqual([]);   
         expect(servidor.cuentaDe("ana@gmail.com").favoritos.obtenerTodos()).toEqual([]);   
     });
+
+    test("un borrador se redacta, se completa y al enviarlo le llega al destinatario", () => {
+        const servidor = crearServidor();
+        const cuentaAna = servidor.cuentaDe("ana@gmail.com");
+        const borrador = new Correo(ana);       //Ana empieza a redactar
+        cuentaAna.guardarBorrador(borrador);
+
+        cuentaAna.editarBorrador(borrador, "Reunión", "Mañana a las 10", [fabrizio]);
+        servidor.enviar(borrador);
+
+        expect(cuentaAna.borradores.obtenerTodos()).toEqual([]);      //salió de Borradores
+        expect(cuentaAna.enviados.obtenerTodos()).toContain(borrador);      //está en Enviados
+        expect(servidor.cuentaDe("fabrizio@gmail.com").entrada.obtenerTodos()[0].asunto).toBe("Reunión");   //le llegó a Fabrizio
+    });
 });

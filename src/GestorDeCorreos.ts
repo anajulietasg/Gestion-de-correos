@@ -4,6 +4,7 @@ import { Enviador } from "./Enviador";
 import { buscar } from "./Busqueda";
 import type { IConsultarCorreos } from "./IConsultarCorreos";
 import { VistaFavoritos } from "./VistaFavoritos";
+import { Contacto } from "./Contacto";
 
 export class GestorDeCorreos {
     private _entrada = new Bandeja("Entrada");       //crea la bandeja de recibidos
@@ -41,8 +42,29 @@ export class GestorDeCorreos {
         this._entrada.agregar(correo);
     }
 
+    guardarBorrador(correo: Correo): void {         //no valida asunto ni destinatarios
+        if (this.bandejaDe(correo) !== undefined) {
+            throw new Error("El correo ya está en otra bandeja");
+        }
+        this._borradores.agregar(correo);
+    }
+
+    editarBorrador(correo: Correo, asunto: string, cuerpo: string, destinatarios: Contacto[] = []): void {
+        if (!this._borradores.contiene(correo)) {      //solo se editan los que están en Borradores
+            throw new Error("El correo no es un borrador");
+        }
+        correo.asunto = asunto;     //usa los setters de Correo
+        correo.cuerpo = cuerpo;
+        for (const destinatario of destinatarios) {
+            correo.agregarDestinatario(destinatario);   
+        }
+    }
+
     enviar(correo: Correo): void {
         this._enviador.enviar(correo);   //el gestor no valida nada, le delega el trabajo al Enviador
+        if (this._borradores.contiene(correo)) {   //si estaba en borradores, lo saca de ahí
+            this._borradores.quitar(correo);
+        }
     }
 
     eliminar(correo: Correo): void {
