@@ -3,12 +3,14 @@ import { Correo } from "./Correo";
 import { Enviador } from "./Enviador";
 import { buscar } from "./Busqueda";
 import type { IConsultarCorreos } from "./IConsultarCorreos";
+import { VistaFavoritos } from "./VistaFavoritos";
 
 export class GestorDeCorreos {
     private _entrada = new Bandeja("Entrada");       //crea la bandeja de recibidos
     private _enviados = new Bandeja("Enviados");      //crea la bandeja de enviados, la única que existe
     private _borradores = new Bandeja("Borradores");
     private _eliminados = new Bandeja("Eliminados");
+    private _favoritos = new VistaFavoritos([this._entrada, this._enviados, this._borradores]);
     private _enviador = new Enviador(this._enviados);   //crea el Enviador y le pasa la bandeja de arriba, no otra nueva
     private _origenes = new Map<Correo, Bandeja>();   //para cada correo eliminado, guarda de qué bandeja vino
     
@@ -26,6 +28,10 @@ export class GestorDeCorreos {
 
     get eliminados(): IConsultarCorreos {
         return this._eliminados;
+    }
+
+    get favoritos(): IConsultarCorreos {
+        return this._favoritos;
     }
 
     recibir(correo: Correo): void {

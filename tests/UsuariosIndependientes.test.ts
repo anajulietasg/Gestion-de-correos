@@ -103,4 +103,18 @@ describe("Usuarios con bandejas independientes", () => {
         expect(asuntosFabrizio).toEqual(["Reunión", "Examen"]);
         expect(asuntosPablo).toEqual(["Reunión", "Examen"]);
     });
+
+    test("cada usuario ve solo sus propios favoritos", () => {
+        const servidor = crearServidor();
+        const correo = new Correo(ana, "Reunión", "Mañana a las 10", [fabrizio, pablo]);
+        servidor.enviar(correo);
+
+        const cuentaFabrizio = servidor.cuentaDe("fabrizio@gmail.com");
+        const copiaFabrizio = cuentaFabrizio.entrada.obtenerTodos()[0];
+        copiaFabrizio.marcarComoFavorito();       //Fabrizio marca su copia
+
+        expect(cuentaFabrizio.favoritos.obtenerTodos()).toEqual([copiaFabrizio]);      //en sus favoritos aparece, no en los de los demás
+        expect(servidor.cuentaDe("pablo@gmail.com").favoritos.obtenerTodos()).toEqual([]);   
+        expect(servidor.cuentaDe("ana@gmail.com").favoritos.obtenerTodos()).toEqual([]);   
+    });
 });

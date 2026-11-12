@@ -2,6 +2,8 @@ import { describe, test, expect } from "vitest";
 import { GestorDeCorreos } from "../src/GestorDeCorreos";
 import { Correo } from "../src/Correo";
 import { Contacto } from "../src/Contacto";
+import { Filtro } from "../src/Filtro";
+import { and, remitenteDeDominio, asuntoContiene } from "../src/Predicados";
 
 describe("GestorDeCorreos", () => {
     const ana = new Contacto("Ana", "ana@gmail.com");
@@ -181,5 +183,56 @@ describe("GestorDeCorreos", () => {
         expect(gestor.buscarEnEntrada("examen")).toEqual([correo]);   //volvió a Entrada
     });
 
+    test("los favoritos reúnen correos de Entrada y de Enviados", () => {
+        const gestor = new GestorDeCorreos();
+        const recibido = new Correo(fabrizio, "Recibido", "", [ana]);
+        const enviado = new Correo(ana, "Enviado", "", [fabrizio]);
+        gestor.recibir(recibido);
+        gestor.enviar(enviado);
+
+        recibido.marcarComoFavorito();
+        enviado.marcarComoFavorito();
+
+        expect(gestor.favoritos.obtenerTodos()).toEqual([recibido, enviado]);
+    });
+
+    test("un favorito eliminado no aparece en favoritos", () => {
+        const gestor = new GestorDeCorreos();
+        const correo = new Correo(fabrizio, "Hola", "", [ana]);
+        gestor.recibir(correo);
+        correo.marcarComoFavorito();
+
+        gestor.eliminar(correo);
+
+        expect(gestor.favoritos.obtenerTodos()).toEqual([]);   //no aparece porque está en Eliminados
+        expect(correo.favorito).toBe(true);   //pero sigue marcado como favorito
+    });
+
+    test("un favorito restaurado vuelve a aparecer en favoritos", () => {
+        const gestor = new GestorDeCorreos();
+        const correo = new Correo(fabrizio, "Hola", "", [ana]);
+        gestor.recibir(correo);
+        correo.marcarComoFavorito();
+        gestor.eliminar(correo);
+
+        gestor.restaurar(correo);
+
+        expect(gestor.favoritos.obtenerTodos()).toEqual([correo]);   //volvió a Entrada y conserva su favorito
+    });
+
+    test("el mismo filtro funciona sobre una bandeja y sobre los favoritos", () => {
+        const gestor = new GestorDeCorreos();
+        const profe = new Contacto("Profe", "profe@ucp.edu.ar");
+        const examenFavorito = new Correo(profe, "Examen final", "", [ana]);
+        const examenComun = new Correo(profe, "Examen parcial", "", [ana]);
+        gestor.recibir(examenFavorito);
+        gestor.recibir(examenComun);
+        examenFavorito.marcarComoFavorito();
+
+        const academicos = new Filtro("Académicos", and(remitenteDeDominio("@ucp.edu.ar"), asuntoContiene("examen")));
+
+        expect(academicos.aplicar(gestor.entrada)).toEqual([examenFavorito, examenComun]);   //en Entrada están los dos
+        expect(academicos.aplicar(gestor.favoritos)).toEqual([examenFavorito]);   //en favoritos, solo el marcado
+    });
 
 });
