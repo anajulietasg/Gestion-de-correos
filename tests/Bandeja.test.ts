@@ -63,4 +63,21 @@ describe("Bandeja", () => {
         expect(bandeja.contiene(correo2)).toBe(true);
         expect(bandeja.obtenerTodos().length).toBe(1);
     });
+
+    test("obtiene solamente los correos no leidos", () => {
+        const bandeja = new Bandeja("Entrada");
+        const correo1 = new Correo(ana, "Examen");
+        const correo2 = new Correo(ana, "Trabajo");
+
+        bandeja.agregar(correo1);
+        bandeja.agregar(correo2);
+
+        correo1.marcarComoLeido();
+
+        expect(bandeja.obtenerNoLeidos()).toEqual([correo2]);
+
+        correo1.marcarComoNoLeido();
+
+        expect(bandeja.obtenerNoLeidos()).toEqual([correo1, correo2]);
+    });
 });
