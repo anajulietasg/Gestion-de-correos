@@ -149,4 +149,16 @@ describe("Correo", () => {
 
         expect(copia.favorito).toBe(false);   
     });
+
+   test("permite marcar un correo nuevamente como no leido", () => {
+        const correo = new Correo(ana, "Examen de Paradigmas");
+
+        expect(correo.leido).toBe(false);
+
+        correo.marcarComoLeido();
+        expect(correo.leido).toBe(true);
+
+        correo.marcarComoNoLeido();
+        expect(correo.leido).toBe(false);
+    }); 
 });
