@@ -2,7 +2,8 @@ import { describe, test, expect } from "vitest";
 import { Bandeja } from "../src/Bandeja";
 import { Contacto } from "../src/Contacto";
 import { Correo } from "../src/Correo";
-import { obtenerAsuntos, filtrarCorreos } from "../src/ProcesamientoCorreos";
+import { obtenerAsuntos, filtrarCorreos,
+    obtenerEstadisticas } from "../src/ProcesamientoCorreos";
 import { asuntoContiene } from "../src/Predicados";
 
 describe("Procesamiento de correos", () => {
@@ -45,5 +46,26 @@ describe("Procesamiento de correos", () => {
             correo2,
             correo3
         ]);
+    });
+
+    test("calcula estadisticas de correos leidos y no leidos", () => {
+        const bandeja = new Bandeja("Entrada");
+        const ana = new Contacto("Ana", "ana@gmail.com");
+
+        const correo1 = new Correo(ana, "Examen");
+        const correo2 = new Correo(ana, "Trabajo");
+        const correo3 = new Correo(ana, "Reunion");
+
+        correo1.marcarComoLeido();
+
+        bandeja.agregar(correo1);
+        bandeja.agregar(correo2);
+        bandeja.agregar(correo3);
+
+        expect(obtenerEstadisticas(bandeja)).toEqual({
+            total: 3,
+            leidos: 1,
+            noLeidos: 2
+        });
     });
 });

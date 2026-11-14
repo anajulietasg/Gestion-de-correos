@@ -10,3 +10,13 @@ export const filtrarCorreos = (
     condicion: Predicado
 ): Correo[] =>
     coleccion.obtenerTodos().filter(condicion);
+
+export const obtenerEstadisticas = (coleccion: IConsultarCorreos) =>
+    coleccion.obtenerTodos().reduce(
+        (estadisticas, correo) => ({
+            total: estadisticas.total + 1,
+            leidos: estadisticas.leidos + Number(correo.leido),
+            noLeidos: estadisticas.noLeidos + Number(!correo.leido)
+        }),
+        { total: 0, leidos: 0, noLeidos: 0 }
+    );
