@@ -2,7 +2,7 @@
 
 ## Descripción
 
-git commit -m "Actualizar README con documentacion del proyecto"
+
 Este proyecto fue desarrollado para la actividad evaluativa AE4 de la materia Paradigmas y Lenguajes de Programación II, correspondiente a la carrera Ingeniería en Sistemas de Información.
 
 Consiste en un gestor de correos electrónicos desarrollado en TypeScript, aplicando conceptos de programación orientada a objetos y programación funcional.
