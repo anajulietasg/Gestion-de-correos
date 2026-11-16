@@ -1,0 +1,226 @@
+<mxfile host="65bd71144e">
+    <diagram id="uml" name="Diagrama de clases">
+        <mxGraphModel dx="960" dy="482" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="960" pageHeight="1987" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="servidor" parent="1" style="swimlane;html=1;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#666666;swimlaneFillColor=#ffffff;rounded=0;fontFamily=Helvetica;fontSize=12;" value="&lt;b&gt;ServidorDeCorreo&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="135" width="270" x="330" y="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="c101" parent="servidor" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="- _cuentas: Map&amp;lt;string, GestorDeCorreos&amp;gt;" vertex="1">
+                    <mxGeometry height="25" width="270" y="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="c102" parent="servidor" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#666666;" value="" vertex="1">
+                    <mxGeometry height="8" width="270" y="51" as="geometry"/>
+                </mxCell>
+                <mxCell id="c103" parent="servidor" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="+ registrar(usuario: Contacto): void&lt;br&gt;+ cuentaDe(email: string): GestorDeCorreos&lt;br&gt;+ estaRegistrado(email: string): boolean&lt;br&gt;+ enviar(correo: Correo): void" vertex="1">
+                    <mxGeometry height="76" width="270" y="59" as="geometry"/>
+                </mxCell>
+                <mxCell id="gestor" parent="1" style="swimlane;html=1;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#666666;swimlaneFillColor=#ffffff;rounded=0;fontFamily=Helvetica;fontSize=12;" value="&lt;b&gt;GestorDeCorreos&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="373" width="270" x="330" y="225" as="geometry"/>
+                </mxCell>
+                <mxCell id="c104" parent="gestor" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="- _entrada: Bandeja&lt;br&gt;- _enviados: Bandeja&lt;br&gt;- _borradores: Bandeja&lt;br&gt;- _eliminados: Bandeja&lt;br&gt;- _enviador: Enviador&lt;br&gt;- _favoritos: VistaFavoritos&lt;br&gt;- _origenes: Map&amp;lt;Correo, Bandeja&amp;gt;" vertex="1">
+                    <mxGeometry height="127" width="270" y="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="c105" parent="gestor" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#666666;" value="" vertex="1">
+                    <mxGeometry height="8" width="270" y="153" as="geometry"/>
+                </mxCell>
+                <mxCell id="c106" parent="gestor" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="+ get entrada, enviados, borradores,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;eliminados, favoritos(): IConsultarCorreos&lt;br&gt;+ recibir(correo: Correo): void&lt;br&gt;+ enviar(correo: Correo): void&lt;br&gt;+ guardarBorrador(correo: Correo): void&lt;br&gt;+ editarBorrador(correo, asunto, cuerpo,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;destinatarios): void&lt;br&gt;+ eliminar(correo: Correo): void&lt;br&gt;+ restaurar(correo: Correo): void&lt;br&gt;+ buscarEnEntrada(texto: string): Correo[]&lt;br&gt;- mover(correo, origen, destino): void&lt;br&gt;- bandejaDe(correo): Bandeja | undefined" vertex="1">
+                    <mxGeometry height="212" width="270" y="161" as="geometry"/>
+                </mxCell>
+                <mxCell id="enviador" parent="1" style="swimlane;html=1;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#666666;swimlaneFillColor=#ffffff;rounded=0;fontFamily=Helvetica;fontSize=12;" value="&lt;b&gt;Enviador&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="84" width="270" x="20" y="668" as="geometry"/>
+                </mxCell>
+                <mxCell id="c107" parent="enviador" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="- _bandeja: IGuardarCorreos" vertex="1">
+                    <mxGeometry height="25" width="270" y="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="c108" parent="enviador" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#666666;" value="" vertex="1">
+                    <mxGeometry height="8" width="270" y="51" as="geometry"/>
+                </mxCell>
+                <mxCell id="c109" parent="enviador" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="+ enviar(correo: Correo): void" vertex="1">
+                    <mxGeometry height="25" width="270" y="59" as="geometry"/>
+                </mxCell>
+                <mxCell id="bandeja" parent="1" style="swimlane;html=1;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#666666;swimlaneFillColor=#ffffff;rounded=0;fontFamily=Helvetica;fontSize=12;" value="&lt;b&gt;Bandeja&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="169" width="270" x="330" y="668" as="geometry"/>
+                </mxCell>
+                <mxCell id="c110" parent="bandeja" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="- _nombre: string&lt;br&gt;- _correos: Correo[]" vertex="1">
+                    <mxGeometry height="42" width="270" y="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="c111" parent="bandeja" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#666666;" value="" vertex="1">
+                    <mxGeometry height="8" width="270" y="68" as="geometry"/>
+                </mxCell>
+                <mxCell id="c112" parent="bandeja" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="+ get nombre(): string&lt;br&gt;+ agregar(correo: Correo): void&lt;br&gt;+ quitar(correo: Correo): void&lt;br&gt;+ contiene(correo: Correo): boolean&lt;br&gt;+ obtenerTodos(): Correo[]" vertex="1">
+                    <mxGeometry height="93" width="270" y="76" as="geometry"/>
+                </mxCell>
+                <mxCell id="vista" parent="1" style="swimlane;html=1;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#666666;swimlaneFillColor=#ffffff;rounded=0;fontFamily=Helvetica;fontSize=12;" value="&lt;b&gt;VistaFavoritos&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="84" width="270" x="640" y="668" as="geometry"/>
+                </mxCell>
+                <mxCell id="c113" parent="vista" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="- _bandejasQueRevisa: IConsultarCorreos[]" vertex="1">
+                    <mxGeometry height="25" width="270" y="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="c114" parent="vista" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#666666;" value="" vertex="1">
+                    <mxGeometry height="8" width="270" y="51" as="geometry"/>
+                </mxCell>
+                <mxCell id="c115" parent="vista" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="+ obtenerTodos(): Correo[]" vertex="1">
+                    <mxGeometry height="25" width="270" y="59" as="geometry"/>
+                </mxCell>
+                <mxCell id="iguardar" parent="1" style="swimlane;html=1;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=44;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;swimlaneFillColor=#ffffff;rounded=0;fontFamily=Helvetica;fontSize=12;" value="«interfaz»&lt;br&gt;&lt;b&gt;IGuardarCorreos&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="86" width="270" x="20" y="907" as="geometry"/>
+                </mxCell>
+                <mxCell id="c116" parent="iguardar" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="+ agregar(correo: Correo): void&lt;br&gt;+ contiene(correo: Correo): boolean" vertex="1">
+                    <mxGeometry height="42" width="270" y="44" as="geometry"/>
+                </mxCell>
+                <mxCell id="iconsultar" parent="1" style="swimlane;html=1;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=44;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;swimlaneFillColor=#ffffff;rounded=0;fontFamily=Helvetica;fontSize=12;" value="«interfaz»&lt;br&gt;&lt;b&gt;IConsultarCorreos&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="69" width="270" x="640" y="907" as="geometry"/>
+                </mxCell>
+                <mxCell id="c117" parent="iconsultar" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="+ obtenerTodos(): Correo[]" vertex="1">
+                    <mxGeometry height="25" width="270" y="44" as="geometry"/>
+                </mxCell>
+                <mxCell id="agenda" parent="1" style="swimlane;html=1;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#666666;swimlaneFillColor=#ffffff;rounded=0;fontFamily=Helvetica;fontSize=12;" value="&lt;b&gt;Agenda&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="186" width="270" x="20" y="1063" as="geometry"/>
+                </mxCell>
+                <mxCell id="c118" parent="agenda" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="- contactos: Contacto[]" vertex="1">
+                    <mxGeometry height="25" width="270" y="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="c119" parent="agenda" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#666666;" value="" vertex="1">
+                    <mxGeometry height="8" width="270" y="51" as="geometry"/>
+                </mxCell>
+                <mxCell id="c120" parent="agenda" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="+ agregar(contacto: Contacto): void&lt;br&gt;+ buscar(email: string): Contacto | undefined&lt;br&gt;+ obtenerTodos(): Contacto[]&lt;br&gt;+ modificarNombre(email, nuevoNombre): void&lt;br&gt;+ modificarEmail(emailActual, nuevoEmail): void&lt;br&gt;+ eliminar(email: string): void&lt;br&gt;- emailEnUso(email, excepto?): boolean" vertex="1">
+                    <mxGeometry height="127" width="270" y="59" as="geometry"/>
+                </mxCell>
+                <mxCell id="correo" parent="1" style="swimlane;html=1;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#666666;swimlaneFillColor=#ffffff;rounded=0;fontFamily=Helvetica;fontSize=12;" value="&lt;b&gt;Correo&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="339" width="270" x="330" y="1063" as="geometry"/>
+                </mxCell>
+                <mxCell id="c121" parent="correo" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="- contador: number {static}&lt;br&gt;- _id: number&lt;br&gt;- _remitente: Contacto&lt;br&gt;- _asunto: string&lt;br&gt;- _cuerpo: string&lt;br&gt;- _destinatarios: Contacto[]&lt;br&gt;- _leido: boolean&lt;br&gt;- _favorito: boolean" vertex="1">
+                    <mxGeometry height="144" width="270" y="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="c122" parent="correo" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#666666;" value="" vertex="1">
+                    <mxGeometry height="8" width="270" y="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="c123" parent="correo" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="+ get id, remitente, destinatarios&lt;br&gt;+ get/set asunto, cuerpo&lt;br&gt;+ get leido, favorito&lt;br&gt;+ agregarDestinatario(contacto: Contacto): void&lt;br&gt;+ marcarComoLeido(): void&lt;br&gt;+ marcarComoNoLeido(): void&lt;br&gt;+ marcarComoFavorito(): void&lt;br&gt;+ desmarcarFavorito(): void&lt;br&gt;+ copiar(): Correo" vertex="1">
+                    <mxGeometry height="161" width="270" y="178" as="geometry"/>
+                </mxCell>
+                <mxCell id="filtro" parent="1" style="swimlane;html=1;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#666666;swimlaneFillColor=#ffffff;rounded=0;fontFamily=Helvetica;fontSize=12;" value="&lt;b&gt;Filtro&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="118" width="270" x="640" y="1063" as="geometry"/>
+                </mxCell>
+                <mxCell id="c124" parent="filtro" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="- _nombre: string&lt;br&gt;- _predicado: Predicado" vertex="1">
+                    <mxGeometry height="42" width="270" y="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="c125" parent="filtro" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#666666;" value="" vertex="1">
+                    <mxGeometry height="8" width="270" y="68" as="geometry"/>
+                </mxCell>
+                <mxCell id="c126" parent="filtro" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="+ get nombre(): string&lt;br&gt;+ aplicar(coleccion: IConsultarCorreos): Correo[]" vertex="1">
+                    <mxGeometry height="42" width="270" y="76" as="geometry"/>
+                </mxCell>
+                <mxCell id="contacto" parent="1" style="swimlane;html=1;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#666666;swimlaneFillColor=#ffffff;rounded=0;fontFamily=Helvetica;fontSize=12;" value="&lt;b&gt;Contacto&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="135" width="270" x="20" y="1472" as="geometry"/>
+                </mxCell>
+                <mxCell id="c127" parent="contacto" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="- _nombre: string&lt;br&gt;- _email: string" vertex="1">
+                    <mxGeometry height="42" width="270" y="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="c128" parent="contacto" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#666666;" value="" vertex="1">
+                    <mxGeometry height="8" width="270" y="68" as="geometry"/>
+                </mxCell>
+                <mxCell id="c129" parent="contacto" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="+ get/set nombre, email&lt;br&gt;- validarNombre(nombre: string): string&lt;br&gt;- validarEmail(email: string): string" vertex="1">
+                    <mxGeometry height="59" width="270" y="76" as="geometry"/>
+                </mxCell>
+                <mxCell id="predicados" parent="1" style="swimlane;html=1;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=44;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;fillColor=#ffe6cc;strokeColor=#d79b00;swimlaneFillColor=#ffffff;rounded=0;fontFamily=Helvetica;fontSize=12;" value="«módulo»&lt;br&gt;&lt;b&gt;Predicados&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="238" width="270" x="330" y="1472" as="geometry"/>
+                </mxCell>
+                <mxCell id="c130" parent="predicados" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="type Predicado = (correo: Correo) =&amp;gt; boolean" vertex="1">
+                    <mxGeometry height="25" width="270" y="44" as="geometry"/>
+                </mxCell>
+                <mxCell id="c131" parent="predicados" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#d79b00;" value="" vertex="1">
+                    <mxGeometry height="8" width="270" y="69" as="geometry"/>
+                </mxCell>
+                <mxCell id="c132" parent="predicados" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="+ and(primero, segundo): Predicado&lt;br&gt;+ or(primero, segundo): Predicado&lt;br&gt;+ not(predicado): Predicado&lt;br&gt;+ remitenteDeDominio(dominio): Predicado&lt;br&gt;+ asuntoContiene(texto): Predicado&lt;br&gt;+ cuerpoContiene(texto): Predicado&lt;br&gt;+ remitenteContiene(texto): Predicado&lt;br&gt;+ algunDestinatarioContiene(texto): Predicado&lt;br&gt;+ estaLeido: Predicado" vertex="1">
+                    <mxGeometry height="161" width="270" y="77" as="geometry"/>
+                </mxCell>
+                <mxCell id="registro" parent="1" style="swimlane;html=1;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#666666;swimlaneFillColor=#ffffff;rounded=0;fontFamily=Helvetica;fontSize=12;" value="&lt;b&gt;RegistroFiltros&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="101" width="270" x="640" y="1472" as="geometry"/>
+                </mxCell>
+                <mxCell id="c133" parent="registro" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="- _filtros: Filtro[]" vertex="1">
+                    <mxGeometry height="25" width="270" y="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="c134" parent="registro" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#666666;" value="" vertex="1">
+                    <mxGeometry height="8" width="270" y="51" as="geometry"/>
+                </mxCell>
+                <mxCell id="c135" parent="registro" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="+ registrar(filtro: Filtro): void&lt;br&gt;+ obtenerTodos(): Filtro[]" vertex="1">
+                    <mxGeometry height="42" width="270" y="59" as="geometry"/>
+                </mxCell>
+                <mxCell id="validador" parent="1" style="swimlane;html=1;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#666666;swimlaneFillColor=#ffffff;rounded=0;fontFamily=Helvetica;fontSize=12;" value="&lt;b&gt;ValidadorEmail&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="68" width="270" x="20" y="1780" as="geometry"/>
+                </mxCell>
+                <mxCell id="c136" parent="validador" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="+ esValido(email: string): boolean {static}&lt;br&gt;+ normalizar(email: string): string {static}" vertex="1">
+                    <mxGeometry height="42" width="270" y="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="busqueda" parent="1" style="swimlane;html=1;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=44;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;fillColor=#ffe6cc;strokeColor=#d79b00;swimlaneFillColor=#ffffff;rounded=0;fontFamily=Helvetica;fontSize=12;" value="«módulo»&lt;br&gt;&lt;b&gt;Busqueda&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="103" width="270" x="330" y="1780" as="geometry"/>
+                </mxCell>
+                <mxCell id="c137" parent="busqueda" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="+ coincideCon(texto: string): Predicado&lt;br&gt;+ buscar(coleccion: IConsultarCorreos,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;texto: string): Correo[]" vertex="1">
+                    <mxGeometry height="59" width="270" y="44" as="geometry"/>
+                </mxCell>
+                <mxCell id="estadisticas" parent="1" style="swimlane;html=1;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=44;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;fillColor=#ffe6cc;strokeColor=#d79b00;swimlaneFillColor=#ffffff;rounded=0;fontFamily=Helvetica;fontSize=12;" value="«módulo»&lt;br&gt;&lt;b&gt;ProcesamientoCorreos&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="137" width="270" x="640" y="1780" as="geometry"/>
+                </mxCell>
+                <mxCell id="c138" parent="estadisticas" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fontSize=11;" value="+ obtenerAsuntos(coleccion): string[]&lt;br&gt;+ filtrarCorreos(coleccion, condicion): Correo[]&lt;br&gt;+ obtenerNoLeidos(coleccion): Correo[]&lt;br&gt;+ obtenerEstadisticas(coleccion):&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;{ total, leidos, noLeidos }" vertex="1">
+                    <mxGeometry height="93" width="270" y="44" as="geometry"/>
+                </mxCell>
+                <mxCell id="c139" edge="1" parent="1" source="servidor" style="endArrow=none;startArrow=diamondThin;startFill=1;startSize=14;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="gestor" value="1..*">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c140" edge="1" parent="1" source="gestor" style="endArrow=none;startArrow=diamondThin;startFill=1;startSize=14;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="enviador" value="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c141" edge="1" parent="1" source="gestor" style="endArrow=none;startArrow=diamondThin;startFill=1;startSize=14;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="bandeja" value="4">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c142" edge="1" parent="1" source="gestor" style="endArrow=none;startArrow=diamondThin;startFill=1;startSize=14;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="vista" value="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c143" edge="1" parent="1" source="enviador" style="endArrow=open;endFill=0;endSize=10;dashed=1;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="iguardar" value="usa">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c144" edge="1" parent="1" source="bandeja" style="endArrow=block;endFill=0;endSize=12;dashed=1;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="iguardar" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c145" edge="1" parent="1" source="bandeja" style="endArrow=block;endFill=0;endSize=12;dashed=1;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="iconsultar" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c146" edge="1" parent="1" source="vista" style="endArrow=block;endFill=0;endSize=12;dashed=1;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.3;exitY=1;exitDx=0;exitDy=0;entryX=0.3;entryY=0;entryDx=0;entryDy=0;" target="iconsultar" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c147" edge="1" parent="1" source="vista" style="endArrow=none;startArrow=diamondThin;startFill=0;startSize=14;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.7;exitY=1;exitDx=0;exitDy=0;entryX=0.7;entryY=0;entryDx=0;entryDy=0;" target="iconsultar" value="revisa 1..*">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c148" edge="1" parent="1" source="bandeja" style="endArrow=none;startArrow=diamondThin;startFill=0;startSize=14;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="correo" value="0..*">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c149" edge="1" parent="1" source="filtro" style="endArrow=open;endFill=0;endSize=10;dashed=1;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="iconsultar" value="aplica sobre">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c150" edge="1" parent="1" source="agenda" style="endArrow=none;startArrow=diamondThin;startFill=0;startSize=14;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="contacto" value="0..*">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c151" edge="1" parent="1" source="correo" style="endArrow=open;endFill=0;endSize=10;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0;exitY=0.85;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="contacto" value="remitente 1&lt;br&gt;destinatarios 1..*">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c152" edge="1" parent="1" source="contacto" style="endArrow=open;endFill=0;endSize=10;dashed=1;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="validador" value="usa">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c153" edge="1" parent="1" source="registro" style="endArrow=none;startArrow=diamondThin;startFill=0;startSize=14;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="filtro" value="0..5">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c154" edge="1" parent="1" source="filtro" style="endArrow=open;endFill=0;endSize=10;dashed=1;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0;exitY=0.85;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" target="predicados" value="usa">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c155" edge="1" parent="1" source="busqueda" style="endArrow=open;endFill=0;endSize=10;dashed=1;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="predicados" value="usa">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c156" edge="1" parent="1" source="estadisticas" style="endArrow=open;endFill=0;endSize=10;dashed=1;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" target="predicados" value="usa">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

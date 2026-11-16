@@ -36,8 +36,4 @@ export class Bandeja implements IConsultarCorreos, IGuardarCorreos {
         return [...this._correos];   //copia de la lista
     }
 
-    obtenerNoLeidos(): Correo[] {
-        return this._correos.filter(correo => !correo.leido);
-    }
-
 }

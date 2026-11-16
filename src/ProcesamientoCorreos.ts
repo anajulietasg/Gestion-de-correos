@@ -1,6 +1,6 @@
 import type { IConsultarCorreos } from "./IConsultarCorreos";
 import type { Correo } from "./Correo";
-import type { Predicado } from "./Predicados";
+import { not, estaLeido, type Predicado } from "./Predicados";
 
 export const obtenerAsuntos = (coleccion: IConsultarCorreos): string[] =>
     coleccion.obtenerTodos().map(correo => correo.asunto);
@@ -20,3 +20,6 @@ export const obtenerEstadisticas = (coleccion: IConsultarCorreos) =>
         }),
         { total: 0, leidos: 0, noLeidos: 0 }
     );
+
+export const obtenerNoLeidos = (coleccion: IConsultarCorreos): Correo[] =>
+    filtrarCorreos(coleccion, not(estaLeido));      //reutiliza filtrarCorreos y los predicados que ya existen

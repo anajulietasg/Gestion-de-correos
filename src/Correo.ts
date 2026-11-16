@@ -57,7 +57,7 @@ export class Correo {
     }
 
     marcarComoNoLeido(): void {
-    this._leido = false;
+        this._leido = false;
     }
 
     get favorito(): boolean {
