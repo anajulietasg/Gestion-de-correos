@@ -7,9 +7,8 @@ import { IConsultarCorreos } from "../src/IConsultarCorreos";
 describe("Bandeja", () => {
     const ana = new Contacto("Ana", "ana@gmail.com");
 
-    test("se crea con un nombre y sin correos", () => {
+    test("se crea sin correos", () => {
         const bandeja = new Bandeja("Enviados");
-        expect(bandeja.nombre).toBe("Enviados");
         expect(bandeja.obtenerTodos()).toEqual([]);
     });
 

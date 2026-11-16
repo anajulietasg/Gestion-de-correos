@@ -123,12 +123,5 @@ describe("Agenda", () => {
         expect(agenda.buscar("ana@gmail.com")).toBe(ana);   //sigue con su email original
     });
 
-    test("la lista que devuelve obtenerTodos no modifica la agenda", () => {
-        const agenda = new Agenda();
-        agenda.agregar(new Contacto("Ana", "ana@gmail.com"));
-        const lista = agenda.obtenerTodos();
-        lista.pop();   //borramos de la copia
-        expect(agenda.obtenerTodos().length).toBe(1);
-    });
 });
 

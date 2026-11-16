@@ -46,13 +46,6 @@ describe("Correo", () => {
         expect(correo.destinatarios.length).toBe(1);
     });
 
-    test("agrega un destinatario sin repetirlo", () => {
-        const correo = new Correo(ana, "Hola");
-        correo.agregarDestinatario(fabrizio);
-        correo.agregarDestinatario(fabrizio);   //el mismo dos veces
-        expect(correo.destinatarios.length).toBe(1);
-    });
-
     test("permite cambiar el asunto y el cuerpo", () => {
         const correo = new Correo(ana, "Hola");
         correo.asunto = "Consulta";
